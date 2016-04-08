@@ -53,6 +53,11 @@ class PhpGenerator extends AbstractGenerator
         }
 
         $namespace = trim($namespace, '.\\');
+
+        if ($this->compiler->isPsr4()) {
+            $namespace = ucwords($namespace, '.');
+        }
+
         return str_replace('.', '\\', $namespace);
     }
 
@@ -427,7 +432,11 @@ class PhpGenerator extends AbstractGenerator
         $s[]= $cmt;
         $s[]= "   */";
       }
-      $s[] = '  class ' . $service->getName() . 'Client extends \Grpc\BaseStub {';
+      if ($this->compiler->isPsr4()) {
+        $s[] = '  class ' . $service->getName() . 'Stub extends \Grpc\BaseStub {';
+      } else {
+        $s[] = '  class ' . $service->getName() . 'Client extends \Grpc\BaseStub {';
+      }
       $s[] = '';
       $s[] = '    public function __construct($hostname, $opts) {';
       $s[] = '      parent::__construct($hostname, $opts);';

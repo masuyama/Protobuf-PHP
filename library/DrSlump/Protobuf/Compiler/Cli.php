@@ -131,6 +131,9 @@ class Cli
         if ($result->options['skipImported']) {
             $args['skip-imported'] = 1;
         }
+        if ($result->options['psr4']) {
+            $args['psr4'] = 1;
+        }
         if ($result->options['define']) {
             $args['options'] = array();
             foreach($result->options['define'] as $define) {
@@ -212,6 +215,13 @@ class Cli
             'action'        => 'StoreTrue',
             'default'       => false,
             'description'   => 'do not generate imported proto files',
+        ));
+
+        $main->addOption('psr4', array(
+            'long_name'     => '--psr4',
+            'action'        => 'StoreTrue',
+            'default'       => false,
+            'description'   => 'output PSR-4 php format',
         ));
 
         $main->addOption('comments', array(

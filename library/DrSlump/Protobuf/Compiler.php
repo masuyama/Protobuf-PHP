@@ -25,6 +25,8 @@ class Compiler
     protected $options = array();
     /** @var array */
     protected $protos = array();
+    /** @var bool */
+    protected $psr4 = false;
 
     public function __construct($verbose = false)
     {
@@ -89,6 +91,11 @@ class Compiler
         }
     }
 
+    public function isPsr4()
+    {
+        return $this->psr4;
+    }
+
     public function camelize($name)
     {
         return preg_replace_callback(
@@ -130,6 +137,9 @@ class Compiler
                     break;
                 case 'skip-imported':
                     $this->skipImported = filter_var($val, FILTER_VALIDATE_BOOLEAN);
+                    break;
+                case 'psr4':
+                    $this->psr4 = filter_var($val, FILTER_VALIDATE_BOOLEAN);
                     break;
                 case 'options':
                     $this->options = $val;
