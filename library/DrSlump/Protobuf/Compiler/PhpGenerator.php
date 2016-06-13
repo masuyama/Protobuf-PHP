@@ -432,11 +432,7 @@ class PhpGenerator extends AbstractGenerator
         $s[]= $cmt;
         $s[]= "   */";
       }
-      if ($this->compiler->isPsr4()) {
-        $s[] = '  class ' . $service->getName() . 'Stub extends \Grpc\BaseStub {';
-      } else {
-        $s[] = '  class ' . $service->getName() . 'Client extends \Grpc\BaseStub {';
-      }
+      $s[] = '  class ' . $service->getName() . 'Client extends \Grpc\BaseStub {';
       $s[] = '';
       $s[] = '    public function __construct($hostname, $opts, $channel = null) {';
       $s[] = '      parent::__construct($hostname, $opts, $channel);';
